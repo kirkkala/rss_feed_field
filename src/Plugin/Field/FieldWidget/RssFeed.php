@@ -30,6 +30,7 @@ class RssFeed extends WidgetBase {
       '#default_value' => isset($items[$delta]->url) ? $items[$delta]->url : NULL,
       '#empty_value' => '',
       '#placeholder' => t('Fully qualified RSS feed URL'),
+      '#element_validate' => ['rss_feed_field_url_validation'],
     ];
 
     // Build options to choose the number of items (or default as default).

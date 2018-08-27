@@ -5,6 +5,9 @@
  * Rss_feed_field module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\UrlHelper;
+use GuzzleHttp\Exception\RequestException;
 /**
  * Implements hook_theme().
  */
@@ -17,4 +20,29 @@ function rss_feed_field_theme() {
       ],
     ],
   ];
+}
+
+/**
+ * Form element validate handler for RSS feed URL.
+ */
+function rss_feed_field_url_validation($element, FormStateInterface $form_state) {
+  $url = $element['#value'];
+
+  if (!UrlHelper::isValid($url, TRUE)) {
+    $form_state->setError($element, t('The feed URL is not valid.'));
+  }
+
+  $client = \Drupal::httpClient();
+  try {
+    $request = $client->get($url);
+    $transfer_success = $request->getBody()->getContents();
+
+    if (substr($transfer_success, 0, 5) != '<?xml' || !simplexml_load_string($transfer_success)) {
+      $form_state->setError($element, t('The URL does not seem to be valid rss/xml.'));
+    }
+  }
+  catch (RequestException $e) {
+    // @todo: inform someone.
+  }
+
 }
