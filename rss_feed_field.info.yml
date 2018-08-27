@@ -1,0 +1,7 @@
+name: RSS feed field
+type: module
+core: 8.x
+description: Renders RSS link entered in field as themed, embedded RSS feed.
+package: Custom
+dependencies:
+  - field

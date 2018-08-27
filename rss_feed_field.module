@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Rss_feed_field module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function rss_feed_field_theme() {
+  return [
+    'rss_feed_field' => [
+      'variables' => [
+        'items' => [],
+        'title' => '',
+      ],
+    ],
+  ];
+}

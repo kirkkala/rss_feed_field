@@ -1,0 +1,10 @@
+field.formatter.settings.rss_feed_field:
+  type: mapping
+  label: 'RSS feed format settings'
+  mapping:
+    show_title:
+      type: boolean
+      label: 'Show title'
+    items:
+      type: integer
+      label: 'Items to display'

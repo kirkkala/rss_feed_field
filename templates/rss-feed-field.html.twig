@@ -1,0 +1,13 @@
+<div class="rss-feed-field-feed">
+    {% if title %}
+        <h3>{{ title }}</h3>
+    {% endif %}
+    <ul>
+        {% for item in items %}
+            <li>
+                {{ item.pubDate }} <a href="{{ item.link }}">{{ item.title }}</a><br />
+                {{ item.description|striptags }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
