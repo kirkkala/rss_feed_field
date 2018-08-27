@@ -71,15 +71,15 @@ class RssFeed extends FormatterBase {
     // Loop the field instances.
     foreach ($items as $delta => $item) {
 
-      ksm($item->url);
       $uri = $item->url;
       $feed = simplexml_load_file($uri);
 
-      if ($this->getSetting('items') != 0) {
-        $count = $this->getSetting('items');
+      if ($items->count != 0) {
+        $count = $items->count;
       }
       else {
-        $count = 10;
+        // @todo: class refactoring and use of use statement.
+        $count = \Drupal\rss_feed_field\Plugin\Field\FieldFormatter\RssFeed::defaultSettings()['items'];
       }
 
       // Build array from SimpleXMLElements.

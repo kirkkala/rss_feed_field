@@ -31,23 +31,30 @@ class RssFeed extends WidgetBase {
       '#empty_value' => '',
       '#placeholder' => t('Fully qualified RSS feed URL'),
     ];
+
+    // Build options to choose the number of items (or default as default).
+    // @todo: use use statement (requires refactoring of classnames
+    $options = [0 => $this->t('Default (@default items)', ['@default' => \Drupal\rss_feed_field\Plugin\Field\FieldFormatter\RssFeed::defaultSettings()['items']])];
+    foreach (range(1, 10) as $i) {
+      $options[$i] = $i;
+    }
     $element['count'] = [
       '#type' => 'select',
       '#title' => t('Number of feed items to display.'),
       '#default_value' => isset($items[$delta]->count) ? $items[$delta]->count : NULL,
-      '#options' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
+      '#options' => $options,
     ];
 
     return $element;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultSettings() {
-    return [
-      'count' => 3,
-    ] + parent::defaultSettings();
-  }
+//  /**
+//   * {@inheritdoc}
+//   */
+//  public static function defaultSettings() {
+//    return [
+//      'count' => 3,
+//    ] + parent::defaultSettings();
+//  }
 
 }
